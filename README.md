@@ -13,4 +13,6 @@ chmod 755 /etc/zabbix/
 chmod 755 /usr/share/z_cheks/ 
     
 import the template and apply it to the desired hosts with ip=127.0.0.1  
-  
+  ![image](https://user-images.githubusercontent.com/46780974/161830956-337c54d9-b68f-4f22-8bee-c70c3c524598.png)
+![image](https://user-images.githubusercontent.com/46780974/161831115-17ccbed8-7e1c-4a71-955b-1f8b7fc11c9b.png)
+![image](https://user-images.githubusercontent.com/46780974/161831279-3dcf5813-cc5b-4670-a0a1-1fead1f8abbd.png)
