@@ -1,4 +1,4 @@
-# zabbix temlate check dns
+# zabbix template check dns
   
 ----install---- 
 setting goes through UsersParameters   
