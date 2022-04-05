@@ -1,0 +1,205 @@
+zabbix_export:
+  version: '5.4'
+  date: '2022-04-05T18:45:54Z'
+  groups:
+    -
+      uuid: 966ac0ff50e24e35ba774170b4a7ecb8
+      name: CHECK-DNS
+  templates:
+    -
+      uuid: b80cb5a33dd64a3aa0dd0af0b425c23c
+      template: Telmpate_check_dns
+      name: Telmpate_check_dns
+      groups:
+        -
+          name: CHECK-DNS
+      items:
+        -
+          uuid: 51ae846b5fb44884943df086e5c60d7b
+          name: ipres1
+          type: DEPENDENT
+          key: dns.check.ipres1
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.ipres
+          master_item:
+            key: 'dns.check[{HOST.NAME},{$DNS1}]'
+        -
+          uuid: 1487b7828dc043ff844d5875dc0c8fa9
+          name: ipres2
+          type: DEPENDENT
+          key: dns.check.ipres2
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.ipres
+          master_item:
+            key: 'dns.check[{HOST.NAME},{$DNS2}]'
+        -
+          uuid: 2af77829cd204d7ca9a334f653b2421d
+          name: ipres3
+          type: DEPENDENT
+          key: dns.check.ipres3
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.ipres
+          master_item:
+            key: 'dns.check[{HOST.NAME},{$DNS3}]'
+        -
+          uuid: 196932374c5c440cb20b0ec44083082e
+          name: Status1
+          type: DEPENDENT
+          key: dns.check.status1
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.status
+          master_item:
+            key: 'dns.check[{HOST.NAME},{$DNS1}]'
+          triggers:
+            -
+              uuid: c5a28fddab5948b6be92929e805ca531
+              expression: 'last(/Telmpate_check_dns/dns.check.status1,#1)=2'
+              recovery_mode: NONE
+              name: 'DN {HOST.NAME} IP address changed ({DNS.CHECK.IPRES.LASTVALUE}) to DNS {$DNS11}'
+              priority: WARNING
+            -
+              uuid: 55c734132bea47c4a96e9bc65373c6b3
+              expression: 'max(/Telmpate_check_dns/dns.check.status1,3m)=0'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'min(/Telmpate_check_dns/dns.check.status1,3m)=1'
+              name: 'DN {HOST.NAME} not resolved in {$DNS11}'
+              priority: AVERAGE
+        -
+          uuid: 573da2b9c4e4473b9706256294c57ef8
+          name: Status2
+          type: DEPENDENT
+          key: dns.check.status2
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.status
+          master_item:
+            key: 'dns.check[{HOST.NAME},{$DNS2}]'
+          triggers:
+            -
+              uuid: 57249a1f07064052af37024d46f398ff
+              expression: 'last(/Telmpate_check_dns/dns.check.status2,#1)=2'
+              recovery_mode: NONE
+              name: 'DN {HOST.NAME} IP address changed ({DNS.CHECK.IPRES.LASTVALUE}) to DNS {$DNS21}'
+              priority: WARNING
+            -
+              uuid: f02982fce6374ad2832973bd005bc8fd
+              expression: 'max(/Telmpate_check_dns/dns.check.status2,3m)=0'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'min(/Telmpate_check_dns/dns.check.status2,3m)=1'
+              name: 'DN {HOST.NAME} not resolved in {$DNS21}'
+              priority: AVERAGE
+        -
+          uuid: f35b63e5b9f142189c02c743cc7cba96
+          name: Status3
+          type: DEPENDENT
+          key: dns.check.status3
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.status
+          master_item:
+            key: 'dns.check[{HOST.NAME},{$DNS3}]'
+          triggers:
+            -
+              uuid: 95fc46347e904d8895d049e9696de344
+              expression: 'last(/Telmpate_check_dns/dns.check.status3,#1)=2'
+              recovery_mode: NONE
+              name: 'DN {HOST.NAME} IP address changed ({DNS.CHECK.IPRES.LASTVALUE}) to DNS {$DNS31}'
+              priority: WARNING
+            -
+              uuid: ce6f9e38429e4dd8aeb8e32d4dc18682
+              expression: 'max(/Telmpate_check_dns/dns.check.status3,3m)=0'
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: 'min(/Telmpate_check_dns/dns.check.status3,3m)=1'
+              name: 'DN {HOST.NAME} not resolved in {$DNS31}'
+              priority: AVERAGE
+        -
+          uuid: 2ccfb2e662bd4c18971e8f339b95ffd8
+          name: check_dns1
+          key: 'dns.check[{HOST.NAME},{$DNS1}]'
+          trends: '0'
+          value_type: TEXT
+        -
+          uuid: c4f2623a0c9f4458a580a6c447a3b132
+          name: check_dns2
+          key: 'dns.check[{HOST.NAME},{$DNS2}]'
+          trends: '0'
+          value_type: TEXT
+        -
+          uuid: e200734eda084bdbbb8980a30acaf863
+          name: check_dns3
+          key: 'dns.check[{HOST.NAME},{$DNS3}]'
+          trends: '0'
+          value_type: TEXT
+      macros:
+        -
+          macro: '{$DNS1}'
+          value: 8.8.8.8
+          description: gogle
+        -
+          macro: '{$DNS2}'
+          value: 77.88.8.8
+          description: 'yandex-1 (77.88.8.8)'
+        -
+          macro: '{$DNS3}'
+          value: 77.88.8.1
+          description: 'yandex-2 (77.88.8.1)'
+        -
+          macro: '{$DNS11}'
+          value: gogle
+        -
+          macro: '{$DNS21}'
+          value: 'yandex-1 (77.88.8.8)'
+        -
+          macro: '{$DNS31}'
+          value: 'yandex-2 (77.88.8.1)'
+  graphs:
+    -
+      uuid: a066c8232d8546e4ab12cc5eab226c76
+      name: chek_dns
+      graph_items:
+        -
+          sortorder: '1'
+          color: FC6EA3
+          item:
+            host: Telmpate_check_dns
+            key: dns.check.status1
+        -
+          sortorder: '2'
+          color: 6C59DC
+          item:
+            host: Telmpate_check_dns
+            key: dns.check.status2
+        -
+          sortorder: '3'
+          color: C7A72D
+          item:
+            host: Telmpate_check_dns
+            key: dns.check.status3
