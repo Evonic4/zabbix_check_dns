@@ -1,3 +1,0 @@
-_domen.name1.com	100.190.100.100
-_domen.nameX.com	100.88.44.55
-

@@ -1,50 +1,47 @@
 #!/bin/bash
+export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 
+fhome="/usr/share/z_cheks/"
 host=$1
 DNS_SERVER=$2
-STAND=$3
-tmpf="./tmp.txt"
+old_ip="0.0.0.0"
 
-dns_file="/tmp/dns.txt"
-dns2_file="/tmp/dns2.txt"
+dns_file=$fhome"dns_"$DNS_SERVER".txt"
 cd /usr/share/z_cheks/
 
-otv2=`host $host $DNS_SERVER | grep "has address" | awk '{print $4}' | head -n 1`
+otv2=$(timeout 4 host $host $DNS_SERVER | grep "has address" | awk '{print $4}' | head -n 1)
 
 if [ -z "$otv2" ]; then
-    #FAIL
+    #FAIL - not resolved
     otv1="0"
+	otv2="0.0.0.0"
 else
     #DONE
 	otv1="1"
+	! [ -f $dns_file ] && touch $dns_file
 	
-	old_ip=`grep "_"$host $dns_file | awk '{print $2}'`
+	old_ip=$(grep "_"$host $dns_file | awk '{print $2}' | head -n 1)
 	
-	if ! [ "$otv2" = "$old_ip" ]; then
-		#change ip 
+	if ! [ "$otv2" == "$old_ip" ]; then
+		#DONE - change ip 
 		otv1="2"
-		
-		str_col=$(grep -cv "^#" $dns_file)
-		rm -f $dns2_file
-		touch $dns2_file
-		
-		for (( i=1;i<=$str_col;i++)); do
-		test=$(sed -n $i"p" $dns_file | tr -d '\r')
-		test_dns=$(echo $test | awk '{print $1}')
-		test_ip=$(echo $test | awk '{print $2}')
-		
-		if [ "_$host" = "$test_dns" ]; then
-			echo "_"$host" "$otv2 >> $dns2_file
-			else
-			echo $test >> $dns2_file
-		fi
-		
-		done
-		
-		cp -f $dns2_file $dns_file
-	otv2=$old_ip"->"$otv2
+		host1="_"$host
+		sed -i "/$host1/d" $dns_file
+		echo "_"$host" "$otv2 >> $dns_file
+		[ -z "$old_ip" ] && old_ip="0.0.0.0"
+	else
+		old_ip="0.0.0.0"
 	fi
-	
 fi
 
-echo "{\"status\":"$otv1",\"ipres\":\""$otv2"\"}"
+ip1=$(echo $otv2 | awk -F"." '{print $1}')
+ip2=$(echo $otv2 | awk -F"." '{print $2}')
+ip3=$(echo $otv2 | awk -F"." '{print $3}')
+ip4=$(echo $otv2 | awk -F"." '{print $4}')
+
+ipo1=$(echo $old_ip | awk -F"." '{print $1}')
+ipo2=$(echo $old_ip | awk -F"." '{print $2}')
+ipo3=$(echo $old_ip | awk -F"." '{print $3}')
+ipo4=$(echo $old_ip | awk -F"." '{print $4}')
+
+echo "{\"status\":"$otv1",\"ip1\":\""$ip1"\",\"ip2\":\""$ip2"\",\"ip3\":\""$ip3"\",\"ip4\":\""$ip4"\",\"ipo1\":\""$ipo1"\",\"ipo2\":\""$ipo2"\",\"ipo3\":\""$ipo3"\",\"ipo4\":\""$ipo4"\",\"ipres1\":\""$otv2"\",\"ipres2\":\""$old_ip"\"}"
