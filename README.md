@@ -15,5 +15,9 @@ cd /usr/share/ && git clone https://github.com/Evonic4/zabbix_check_dns.git %% m
 5. применить шаблон к хостам и настроить оповещения, фсе  
   
    
-     
-     
+зависимости: 
+1. пользователь zabbix  
+2. host  
+3. bash  
+4. zabbix  
+  
