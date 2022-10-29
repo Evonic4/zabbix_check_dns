@@ -1,16 +1,17 @@
 # zabbix template check dns
   
-----install---- 
-setting goes through UsersParameters   
-git clone https://github.com/Evonic4/zabbix_check_dns.git  
-cd zabbix_check_dns  
-all domen names in dns.txt  
-mkdir -p /usr/share/z_cheks/ && cp ./dns.conf /etc/zabbix/zabbix_agentd.d/ && cp ./host-dns2.sh /usr/share/z_cheks/ && cp ./dns.txt /tmp/ && chmod +rx /usr/share/z_cheks/host-dns2.sh && chown -R zabbix:zabbix /usr/share/z_cheks/ && systemctl restart zabbix-agent  
+----установка---- 
+cd /usr/share/ && git clone https://github.com/Evonic4/zabbix_check_dns.git %% mv ./zabbix_check_dns ./z_cheks && chmod +rx /usr/share/z_cheks/setup.sh && /usr/share/z_cheks/setup.sh  
   
-if required:  
-chown -R root:zabbix /etc/zabbix/  
-chmod 755 /etc/zabbix/  
-chmod 755 /usr/share/z_cheks/ 
+---настройка---  
+1. можно изменить серверы проверки DNS тут: /usr/share/z_cheks/dns-servers.txt  
+2. завести USERS PARAMETERS на сервере с агентом скопировав dns.conf в /etc/zabbix/zabbix_agentd.d/  
+! в /etc/zabbix/zabbix_agentd.conf должно быть Include=/etc/zabbix/zabbix_agentd.d/*.conf  
+3. экспорторовать шаблон Telmpate_check_dns.yaml в ZAbbix  
+4. сделаем отдельную группу эндпоинтов и заведем туда урлы, примерно так:  
+
+
+
     
 import the template and apply it to the desired hosts with ip=127.0.0.1  
   ![image](https://user-images.githubusercontent.com/46780974/161830956-337c54d9-b68f-4f22-8bee-c70c3c524598.png)
