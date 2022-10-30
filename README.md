@@ -1,6 +1,6 @@
 # zabbix template check dns
   
-----установка---- 
+----установка----   
 cd /usr/share/ && git clone https://github.com/Evonic4/zabbix_check_dns.git %% mv ./zabbix_check_dns ./z_cheks && chmod +rx /usr/share/z_cheks/setup.sh && /usr/share/z_cheks/setup.sh  
   
 ---настройка---  
