@@ -21,8 +21,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 30,
-  "iteration": 1649186059998,
+  "id": 60,
+  "iteration": 1668437939344,
   "links": [],
   "panels": [
     {
@@ -40,7 +40,7 @@
       "type": "row"
     },
     {
-      "datasource": "Zabbix-PROD",
+      "datasource": "Zabbix",
       "description": "8.8.8.8",
       "fieldConfig": {
         "defaults": {
@@ -104,13 +104,13 @@
           },
           "functions": [],
           "group": {
-            "filter": "url_prod"
+            "filter": "$gr"
           },
           "host": {
             "filter": "/.*/"
           },
           "item": {
-            "filter": "ipres1"
+            "filter": "/.*ipres1 google.*/"
           },
           "itemTag": {
             "filter": ""
@@ -143,12 +143,12 @@
           }
         }
       ],
-      "title": "DNS GOOGLE CHECK PROD",
+      "title": "DNS GOOGLE CHECK $stand",
       "transformations": [
         {
           "id": "renameByRegex",
           "options": {
-            "regex": "(: ipres1)",
+            "regex": "(: ipres1 google)",
             "renamePattern": ""
           }
         },
@@ -159,7 +159,7 @@
             "labelsToFields": false,
             "mode": "seriesToRows",
             "reducers": [
-              "last"
+              "lastNotNull"
             ]
           }
         }
@@ -167,7 +167,7 @@
       "type": "table"
     },
     {
-      "datasource": "Zabbix-PROD",
+      "datasource": "Zabbix",
       "description": "77.88.8.8",
       "fieldConfig": {
         "defaults": {
@@ -231,13 +231,13 @@
           },
           "functions": [],
           "group": {
-            "filter": "url_prod"
+            "filter": "$gr"
           },
           "host": {
             "filter": "/.*/"
           },
           "item": {
-            "filter": "ipres2"
+            "filter": "ipres1 yandex1"
           },
           "itemTag": {
             "filter": ""
@@ -270,12 +270,12 @@
           }
         }
       ],
-      "title": "DNS YANDEX-1 CHECK PROD",
+      "title": "DNS YANDEX-1 CHECK $stand",
       "transformations": [
         {
           "id": "renameByRegex",
           "options": {
-            "regex": "(: ipres2)",
+            "regex": "(: ipres1 yandex1)",
             "renamePattern": ""
           }
         },
@@ -294,7 +294,7 @@
       "type": "table"
     },
     {
-      "datasource": "Zabbix-PROD",
+      "datasource": "Zabbix",
       "description": "77.88.8.1",
       "fieldConfig": {
         "defaults": {
@@ -358,13 +358,13 @@
           },
           "functions": [],
           "group": {
-            "filter": "url_prod"
+            "filter": "$gr"
           },
           "host": {
             "filter": "/.*/"
           },
           "item": {
-            "filter": "ipres3"
+            "filter": "ipres1 yandex2"
           },
           "itemTag": {
             "filter": ""
@@ -397,12 +397,12 @@
           }
         }
       ],
-      "title": "DNS YANDEX-2 CHECK PROD",
+      "title": "DNS YANDEX-2 CHECK $stand",
       "transformations": [
         {
           "id": "renameByRegex",
           "options": {
-            "regex": "(: ipres3)",
+            "regex": "(: ipres1 yandex2)",
             "renamePattern": ""
           }
         },
@@ -421,17 +421,27 @@
       "type": "table"
     },
     {
-      "datasource": "Zabbix-PROD",
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 10,
+      "panels": [],
+      "title": "Status resolv",
+      "type": "row"
+    },
+    {
+      "datasource": "Zabbix",
       "description": "8.8.8.8",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto"
-          },
           "mappings": [
             {
               "options": {
@@ -445,22 +455,29 @@
                 }
               },
               "type": "value"
+            },
+            {
+              "options": {
+                "match": "null+nan",
+                "result": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "No DATA"
+                }
+              },
+              "type": "special"
             }
           ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
               },
               {
                 "color": "green",
                 "value": 1
-              },
-              {
-                "color": "red",
-                "value": 2
               }
             ]
           }
@@ -468,14 +485,26 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 8,
         "x": 0,
-        "y": 9
+        "y": 10
       },
-      "id": 30,
+      "id": 2,
       "options": {
-        "showHeader": false
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value_and_name"
       },
       "pluginVersion": "8.1.6",
       "targets": [
@@ -485,13 +514,13 @@
           },
           "functions": [],
           "group": {
-            "filter": "url_demo"
+            "filter": "$gr"
           },
           "host": {
             "filter": "/.*/"
           },
           "item": {
-            "filter": "ipres1"
+            "filter": "Status google"
           },
           "itemTag": {
             "filter": ""
@@ -505,7 +534,7 @@
           "proxy": {
             "filter": ""
           },
-          "queryType": "2",
+          "queryType": "0",
           "refId": "A",
           "resultFormat": "time_series",
           "table": {
@@ -524,41 +553,26 @@
           }
         }
       ],
-      "title": "DNS GOOGLE CHECK DEMO",
+      "title": "DNS GOOGLE CHECK $stand",
       "transformations": [
         {
           "id": "renameByRegex",
           "options": {
-            "regex": "(: ipres1)",
+            "regex": "(: Status google)",
             "renamePattern": ""
-          }
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": false,
-            "labelsToFields": false,
-            "mode": "seriesToRows",
-            "reducers": [
-              "last"
-            ]
           }
         }
       ],
-      "type": "table"
+      "type": "stat"
     },
     {
-      "datasource": "Zabbix-PROD",
+      "datasource": "Zabbix",
       "description": "77.88.8.8",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto"
-          },
           "mappings": [
             {
               "options": {
@@ -572,22 +586,29 @@
                 }
               },
               "type": "value"
+            },
+            {
+              "options": {
+                "match": "null+nan",
+                "result": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "No DATA"
+                }
+              },
+              "type": "special"
             }
           ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
               },
               {
                 "color": "green",
                 "value": 1
-              },
-              {
-                "color": "red",
-                "value": 2
               }
             ]
           }
@@ -595,14 +616,26 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 8,
         "x": 8,
-        "y": 9
+        "y": 10
       },
-      "id": 31,
+      "id": 7,
       "options": {
-        "showHeader": false
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value_and_name"
       },
       "pluginVersion": "8.1.6",
       "targets": [
@@ -612,13 +645,13 @@
           },
           "functions": [],
           "group": {
-            "filter": "url_demo"
+            "filter": "$gr"
           },
           "host": {
             "filter": "/.*/"
           },
           "item": {
-            "filter": "ipres2"
+            "filter": "Status yandex1"
           },
           "itemTag": {
             "filter": ""
@@ -632,7 +665,7 @@
           "proxy": {
             "filter": ""
           },
-          "queryType": "2",
+          "queryType": "0",
           "refId": "A",
           "resultFormat": "time_series",
           "table": {
@@ -651,41 +684,26 @@
           }
         }
       ],
-      "title": "DNS YANDEX-1 CHECK DEMO",
+      "title": "DNS YANDEX-1 CHECK $stand",
       "transformations": [
         {
           "id": "renameByRegex",
           "options": {
-            "regex": "(: ipres2)",
+            "regex": "(: Status yandex1)",
             "renamePattern": ""
-          }
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": false,
-            "labelsToFields": false,
-            "mode": "seriesToRows",
-            "reducers": [
-              "last"
-            ]
           }
         }
       ],
-      "type": "table"
+      "type": "stat"
     },
     {
-      "datasource": "Zabbix-PROD",
+      "datasource": "Zabbix",
       "description": "77.88.8.1",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto"
-          },
           "mappings": [
             {
               "options": {
@@ -699,22 +717,29 @@
                 }
               },
               "type": "value"
+            },
+            {
+              "options": {
+                "match": "null+nan",
+                "result": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "No DATA"
+                }
+              },
+              "type": "special"
             }
           ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
               },
               {
                 "color": "green",
                 "value": 1
-              },
-              {
-                "color": "red",
-                "value": 2
               }
             ]
           }
@@ -722,14 +747,26 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 10,
         "w": 8,
         "x": 16,
-        "y": 9
+        "y": 10
       },
-      "id": 32,
+      "id": 8,
       "options": {
-        "showHeader": false
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value_and_name"
       },
       "pluginVersion": "8.1.6",
       "targets": [
@@ -739,13 +776,13 @@
           },
           "functions": [],
           "group": {
-            "filter": "url_demo"
+            "filter": "$gr"
           },
           "host": {
             "filter": "/.*/"
           },
           "item": {
-            "filter": "ipres3"
+            "filter": "Status yandex2"
           },
           "itemTag": {
             "filter": ""
@@ -759,7 +796,7 @@
           "proxy": {
             "filter": ""
           },
-          "queryType": "2",
+          "queryType": "0",
           "refId": "A",
           "resultFormat": "time_series",
           "table": {
@@ -778,28 +815,17 @@
           }
         }
       ],
-      "title": "DNS YANDEX-2 CHECK DEMO",
+      "title": "DNS YANDEX-2 CHECK $stand",
       "transformations": [
         {
           "id": "renameByRegex",
           "options": {
-            "regex": "(: ipres3)",
+            "regex": "(: Status yandex2)",
             "renamePattern": ""
           }
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": false,
-            "labelsToFields": false,
-            "mode": "seriesToRows",
-            "reducers": [
-              "last"
-            ]
-          }
         }
       ],
-      "type": "table"
+      "type": "stat"
     },
     {
       "collapsed": true,
@@ -808,717 +834,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 17
-      },
-      "id": 10,
-      "panels": [
-        {
-          "datasource": "Zabbix-PROD",
-          "description": "8.8.8.8",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "0": {
-                      "index": 1,
-                      "text": "NOT resolved"
-                    },
-                    "1": {
-                      "index": 0,
-                      "text": "ОК"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  },
-                  {
-                    "color": "red",
-                    "value": 2
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 11
-          },
-          "id": 2,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "value_and_name"
-          },
-          "pluginVersion": "8.1.6",
-          "targets": [
-            {
-              "application": {
-                "filter": ""
-              },
-              "functions": [],
-              "group": {
-                "filter": "url_prod"
-              },
-              "host": {
-                "filter": "/.*/"
-              },
-              "item": {
-                "filter": "Status1"
-              },
-              "itemTag": {
-                "filter": ""
-              },
-              "options": {
-                "disableDataAlignment": false,
-                "showDisabledItems": false,
-                "skipEmptyValues": false,
-                "useZabbixValueMapping": false
-              },
-              "proxy": {
-                "filter": ""
-              },
-              "queryType": "0",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "table": {
-                "skipEmptyValues": false
-              },
-              "tags": {
-                "filter": ""
-              },
-              "trigger": {
-                "filter": ""
-              },
-              "triggers": {
-                "acknowledged": 2,
-                "count": true,
-                "minSeverity": 3
-              }
-            }
-          ],
-          "title": "DNS GOOGLE CHECK PROD",
-          "type": "stat"
-        },
-        {
-          "datasource": "Zabbix-PROD",
-          "description": "77.88.8.8",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "0": {
-                      "index": 1,
-                      "text": "NOT resolved"
-                    },
-                    "1": {
-                      "index": 0,
-                      "text": "ОК"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  },
-                  {
-                    "color": "red",
-                    "value": 2
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 11
-          },
-          "id": 7,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "value_and_name"
-          },
-          "pluginVersion": "8.1.6",
-          "targets": [
-            {
-              "application": {
-                "filter": ""
-              },
-              "functions": [],
-              "group": {
-                "filter": "url_prod"
-              },
-              "host": {
-                "filter": "/.*/"
-              },
-              "item": {
-                "filter": "Status2"
-              },
-              "itemTag": {
-                "filter": ""
-              },
-              "options": {
-                "disableDataAlignment": false,
-                "showDisabledItems": false,
-                "skipEmptyValues": false,
-                "useZabbixValueMapping": false
-              },
-              "proxy": {
-                "filter": ""
-              },
-              "queryType": "0",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "table": {
-                "skipEmptyValues": false
-              },
-              "tags": {
-                "filter": ""
-              },
-              "trigger": {
-                "filter": ""
-              },
-              "triggers": {
-                "acknowledged": 2,
-                "count": true,
-                "minSeverity": 3
-              }
-            }
-          ],
-          "title": "DNS YANDEX-1 CHECK PROD",
-          "type": "stat"
-        },
-        {
-          "datasource": "Zabbix-PROD",
-          "description": "77.88.8.1",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "0": {
-                      "index": 1,
-                      "text": "NOT resolved"
-                    },
-                    "1": {
-                      "index": 0,
-                      "text": "ОК"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  },
-                  {
-                    "color": "red",
-                    "value": 2
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 16,
-            "y": 11
-          },
-          "id": 8,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "value_and_name"
-          },
-          "pluginVersion": "8.1.6",
-          "targets": [
-            {
-              "application": {
-                "filter": ""
-              },
-              "functions": [],
-              "group": {
-                "filter": "url_prod"
-              },
-              "host": {
-                "filter": "/.*/"
-              },
-              "item": {
-                "filter": "Status3"
-              },
-              "itemTag": {
-                "filter": ""
-              },
-              "options": {
-                "disableDataAlignment": false,
-                "showDisabledItems": false,
-                "skipEmptyValues": false,
-                "useZabbixValueMapping": false
-              },
-              "proxy": {
-                "filter": ""
-              },
-              "queryType": "0",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "table": {
-                "skipEmptyValues": false
-              },
-              "tags": {
-                "filter": ""
-              },
-              "trigger": {
-                "filter": ""
-              },
-              "triggers": {
-                "acknowledged": 2,
-                "count": true,
-                "minSeverity": 3
-              }
-            }
-          ],
-          "title": "DNS YANDEX-2 CHECK PROD",
-          "type": "stat"
-        },
-        {
-          "datasource": "Zabbix-PROD",
-          "description": "8.8.8.8",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "0": {
-                      "index": 1,
-                      "text": "NOT resolved"
-                    },
-                    "1": {
-                      "index": 0,
-                      "text": "ОК"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  },
-                  {
-                    "color": "red",
-                    "value": 2
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 0,
-            "y": 21
-          },
-          "id": 15,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "value_and_name"
-          },
-          "pluginVersion": "8.1.6",
-          "targets": [
-            {
-              "application": {
-                "filter": ""
-              },
-              "functions": [],
-              "group": {
-                "filter": "url_demo"
-              },
-              "host": {
-                "filter": "/.*/"
-              },
-              "item": {
-                "filter": "Status1"
-              },
-              "itemTag": {
-                "filter": ""
-              },
-              "options": {
-                "disableDataAlignment": false,
-                "showDisabledItems": false,
-                "skipEmptyValues": false,
-                "useZabbixValueMapping": false
-              },
-              "proxy": {
-                "filter": ""
-              },
-              "queryType": "0",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "table": {
-                "skipEmptyValues": false
-              },
-              "tags": {
-                "filter": ""
-              },
-              "trigger": {
-                "filter": ""
-              },
-              "triggers": {
-                "acknowledged": 2,
-                "count": true,
-                "minSeverity": 3
-              }
-            }
-          ],
-          "title": "DNS GOOGLE CHECK DEMO",
-          "type": "stat"
-        },
-        {
-          "datasource": "Zabbix-PROD",
-          "description": "77.88.8.8",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "0": {
-                      "index": 1,
-                      "text": "NOT resolved"
-                    },
-                    "1": {
-                      "index": 0,
-                      "text": "ОК"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  },
-                  {
-                    "color": "red",
-                    "value": 2
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 8,
-            "y": 21
-          },
-          "id": 16,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "value_and_name"
-          },
-          "pluginVersion": "8.1.6",
-          "targets": [
-            {
-              "application": {
-                "filter": ""
-              },
-              "functions": [],
-              "group": {
-                "filter": "url_demo"
-              },
-              "host": {
-                "filter": "/.*/"
-              },
-              "item": {
-                "filter": "Status2"
-              },
-              "itemTag": {
-                "filter": ""
-              },
-              "options": {
-                "disableDataAlignment": false,
-                "showDisabledItems": false,
-                "skipEmptyValues": false,
-                "useZabbixValueMapping": false
-              },
-              "proxy": {
-                "filter": ""
-              },
-              "queryType": "0",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "table": {
-                "skipEmptyValues": false
-              },
-              "tags": {
-                "filter": ""
-              },
-              "trigger": {
-                "filter": ""
-              },
-              "triggers": {
-                "acknowledged": 2,
-                "count": true,
-                "minSeverity": 3
-              }
-            }
-          ],
-          "title": "DNS YANDEX-1 CHECK DEMO",
-          "type": "stat"
-        },
-        {
-          "datasource": "Zabbix-PROD",
-          "description": "77.88.8.1",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "0": {
-                      "index": 1,
-                      "text": "NOT resolved"
-                    },
-                    "1": {
-                      "index": 0,
-                      "text": "ОК"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 1
-                  },
-                  {
-                    "color": "red",
-                    "value": 2
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 8,
-            "x": 16,
-            "y": 21
-          },
-          "id": 17,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "text": {},
-            "textMode": "value_and_name"
-          },
-          "pluginVersion": "8.1.6",
-          "targets": [
-            {
-              "application": {
-                "filter": ""
-              },
-              "functions": [],
-              "group": {
-                "filter": "url_demo"
-              },
-              "host": {
-                "filter": "/.*/"
-              },
-              "item": {
-                "filter": "Status3"
-              },
-              "itemTag": {
-                "filter": ""
-              },
-              "options": {
-                "disableDataAlignment": false,
-                "showDisabledItems": false,
-                "skipEmptyValues": false,
-                "useZabbixValueMapping": false
-              },
-              "proxy": {
-                "filter": ""
-              },
-              "queryType": "0",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "table": {
-                "skipEmptyValues": false
-              },
-              "tags": {
-                "filter": ""
-              },
-              "trigger": {
-                "filter": ""
-              },
-              "triggers": {
-                "acknowledged": 2,
-                "count": true,
-                "minSeverity": 3
-              }
-            }
-          ],
-          "title": "DNS YANDEX-2 CHECK DEMO",
-          "type": "stat"
-        }
-      ],
-      "title": "Status resolv",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 18
+        "y": 20
       },
       "id": 12,
       "panels": [
         {
-          "datasource": "Zabbix-PROD",
+          "datasource": "Zabbix",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1569,7 +890,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 2
+            "y": 11
           },
           "id": 4,
           "options": {
@@ -1590,13 +911,13 @@
               },
               "functions": [],
               "group": {
-                "filter": "url_prod"
+                "filter": "$gr"
               },
               "host": {
                 "filter": "/.*/"
               },
               "item": {
-                "filter": "Status1"
+                "filter": "Status google"
               },
               "itemTag": {
                 "filter": ""
@@ -1629,11 +950,11 @@
               }
             }
           ],
-          "title": "GOOGLE DNS CHECK PROD",
+          "title": "GOOGLE DNS CHECK $stand",
           "type": "timeseries"
         },
         {
-          "datasource": "Zabbix-PROD",
+          "datasource": "Zabbix",
           "description": "77.88.8.8",
           "fieldConfig": {
             "defaults": {
@@ -1685,7 +1006,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 9
+            "y": 18
           },
           "id": 18,
           "options": {
@@ -1706,13 +1027,13 @@
               },
               "functions": [],
               "group": {
-                "filter": "url_prod"
+                "filter": "$gr"
               },
               "host": {
                 "filter": "/.*/"
               },
               "item": {
-                "filter": "Status2"
+                "filter": "Status yandex1"
               },
               "itemTag": {
                 "filter": ""
@@ -1745,11 +1066,11 @@
               }
             }
           ],
-          "title": "YANDEX-1 DNS CHECK PROD",
+          "title": "YANDEX-1 DNS CHECK $stand",
           "type": "timeseries"
         },
         {
-          "datasource": "Zabbix-PROD",
+          "datasource": "Zabbix",
           "description": "77.88.8.1",
           "fieldConfig": {
             "defaults": {
@@ -1801,7 +1122,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 16
+            "y": 25
           },
           "id": 19,
           "options": {
@@ -1822,13 +1143,13 @@
               },
               "functions": [],
               "group": {
-                "filter": "url_prod"
+                "filter": "$gr"
               },
               "host": {
                 "filter": "/.*/"
               },
               "item": {
-                "filter": "Status3"
+                "filter": "Status yandex2"
               },
               "itemTag": {
                 "filter": ""
@@ -1861,354 +1182,7 @@
               }
             }
           ],
-          "title": "YANDEX-2 DNS CHECK PROD",
-          "type": "timeseries"
-        },
-        {
-          "datasource": "Zabbix-PROD",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 24
-          },
-          "id": 20,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.1.6",
-          "targets": [
-            {
-              "application": {
-                "filter": ""
-              },
-              "functions": [],
-              "group": {
-                "filter": "url_demo"
-              },
-              "host": {
-                "filter": "/.*/"
-              },
-              "item": {
-                "filter": "Status1"
-              },
-              "itemTag": {
-                "filter": ""
-              },
-              "options": {
-                "disableDataAlignment": false,
-                "showDisabledItems": false,
-                "skipEmptyValues": false,
-                "useZabbixValueMapping": false
-              },
-              "proxy": {
-                "filter": ""
-              },
-              "queryType": "0",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "table": {
-                "skipEmptyValues": false
-              },
-              "tags": {
-                "filter": ""
-              },
-              "trigger": {
-                "filter": ""
-              },
-              "triggers": {
-                "acknowledged": 2,
-                "count": true,
-                "minSeverity": 3
-              }
-            }
-          ],
-          "title": "GOOGLE DNS CHECK DEMO",
-          "type": "timeseries"
-        },
-        {
-          "datasource": "Zabbix-PROD",
-          "description": "77.88.8.8",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 31
-          },
-          "id": 21,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.1.6",
-          "targets": [
-            {
-              "application": {
-                "filter": ""
-              },
-              "functions": [],
-              "group": {
-                "filter": "url_demo"
-              },
-              "host": {
-                "filter": "/.*/"
-              },
-              "item": {
-                "filter": "Status2"
-              },
-              "itemTag": {
-                "filter": ""
-              },
-              "options": {
-                "disableDataAlignment": false,
-                "showDisabledItems": false,
-                "skipEmptyValues": false,
-                "useZabbixValueMapping": false
-              },
-              "proxy": {
-                "filter": ""
-              },
-              "queryType": "0",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "table": {
-                "skipEmptyValues": false
-              },
-              "tags": {
-                "filter": ""
-              },
-              "trigger": {
-                "filter": ""
-              },
-              "triggers": {
-                "acknowledged": 2,
-                "count": true,
-                "minSeverity": 3
-              }
-            }
-          ],
-          "title": "YANDEX-1 DNS CHECK DEMO",
-          "type": "timeseries"
-        },
-        {
-          "datasource": "Zabbix-PROD",
-          "description": "77.88.8.1",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 24,
-            "x": 0,
-            "y": 38
-          },
-          "id": 22,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.1.6",
-          "targets": [
-            {
-              "application": {
-                "filter": ""
-              },
-              "functions": [],
-              "group": {
-                "filter": "url_demo"
-              },
-              "host": {
-                "filter": "/.*/"
-              },
-              "item": {
-                "filter": "Status3"
-              },
-              "itemTag": {
-                "filter": ""
-              },
-              "options": {
-                "disableDataAlignment": false,
-                "showDisabledItems": false,
-                "skipEmptyValues": false,
-                "useZabbixValueMapping": false
-              },
-              "proxy": {
-                "filter": ""
-              },
-              "queryType": "0",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "table": {
-                "skipEmptyValues": false
-              },
-              "tags": {
-                "filter": ""
-              },
-              "trigger": {
-                "filter": ""
-              },
-              "triggers": {
-                "acknowledged": 2,
-                "count": true,
-                "minSeverity": 3
-              }
-            }
-          ],
-          "title": "YANDEX-2 DNS CHECK DEMO",
+          "title": "YANDEX-2 DNS CHECK $stand",
           "type": "timeseries"
         }
       ],
@@ -2222,12 +1196,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 21
       },
       "id": 14,
       "panels": [
         {
-          "datasource": "Zabbix-PROD",
+          "datasource": "Zabbix",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2279,12 +1253,17 @@
             "h": 15,
             "w": 8,
             "x": 0,
-            "y": 3
+            "y": 4
           },
           "id": 6,
           "options": {
             "showHeader": true,
-            "sortBy": []
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Time"
+              }
+            ]
           },
           "pluginVersion": "8.1.6",
           "targets": [
@@ -2294,13 +1273,58 @@
               },
               "functions": [],
               "group": {
-                "filter": "/url.*/"
+                "filter": "$gr"
+              },
+              "hide": false,
+              "host": {
+                "filter": "$host"
+              },
+              "item": {
+                "filter": "ipres2 google"
+              },
+              "itemTag": {
+                "filter": ""
+              },
+              "options": {
+                "disableDataAlignment": false,
+                "showDisabledItems": false,
+                "skipEmptyValues": false,
+                "useZabbixValueMapping": false
+              },
+              "proxy": {
+                "filter": ""
+              },
+              "queryType": "2",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "table": {
+                "skipEmptyValues": false
+              },
+              "tags": {
+                "filter": ""
+              },
+              "trigger": {
+                "filter": ""
+              },
+              "triggers": {
+                "acknowledged": 2,
+                "count": true,
+                "minSeverity": 3
+              }
+            },
+            {
+              "application": {
+                "filter": ""
+              },
+              "functions": [],
+              "group": {
+                "filter": "$gr"
               },
               "host": {
                 "filter": "$host"
               },
               "item": {
-                "filter": "ipres1"
+                "filter": "ipres1 google"
               },
               "itemTag": {
                 "filter": ""
@@ -2333,11 +1357,12 @@
               }
             }
           ],
-          "title": "GOOGLE DNS IP RESOLVED $host",
+          "title": "GOOGLE TABLE",
+          "transformations": [],
           "type": "table"
         },
         {
-          "datasource": "Zabbix-PROD",
+          "datasource": "Zabbix",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2368,6 +1393,18 @@
                   {
                     "id": "custom.width",
                     "value": 149
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": null
                   }
                 ]
               }
@@ -2377,12 +1414,17 @@
             "h": 15,
             "w": 8,
             "x": 8,
-            "y": 3
+            "y": 4
           },
-          "id": 23,
+          "id": 30,
           "options": {
             "showHeader": true,
-            "sortBy": []
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Time"
+              }
+            ]
           },
           "pluginVersion": "8.1.6",
           "targets": [
@@ -2392,13 +1434,58 @@
               },
               "functions": [],
               "group": {
-                "filter": "/url.*/"
+                "filter": "$gr"
+              },
+              "hide": false,
+              "host": {
+                "filter": "$host"
+              },
+              "item": {
+                "filter": "ipres2 yandex1"
+              },
+              "itemTag": {
+                "filter": ""
+              },
+              "options": {
+                "disableDataAlignment": false,
+                "showDisabledItems": false,
+                "skipEmptyValues": false,
+                "useZabbixValueMapping": false
+              },
+              "proxy": {
+                "filter": ""
+              },
+              "queryType": "2",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "table": {
+                "skipEmptyValues": false
+              },
+              "tags": {
+                "filter": ""
+              },
+              "trigger": {
+                "filter": ""
+              },
+              "triggers": {
+                "acknowledged": 2,
+                "count": true,
+                "minSeverity": 3
+              }
+            },
+            {
+              "application": {
+                "filter": ""
+              },
+              "functions": [],
+              "group": {
+                "filter": "$gr"
               },
               "host": {
                 "filter": "$host"
               },
               "item": {
-                "filter": "ipres2"
+                "filter": "ipres1 yandex1"
               },
               "itemTag": {
                 "filter": ""
@@ -2431,11 +1518,13 @@
               }
             }
           ],
-          "title": "YANDEX-1 DNS IP RESOLVED $host",
+          "title": "YANDEX-1 TABLE",
+          "transformations": [],
           "type": "table"
         },
         {
-          "datasource": "Zabbix-PROD",
+          "datasource": "Zabbix",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2468,6 +1557,18 @@
                     "value": 149
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Time"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": null
+                  }
+                ]
               }
             ]
           },
@@ -2475,12 +1576,17 @@
             "h": 15,
             "w": 8,
             "x": 16,
-            "y": 3
+            "y": 4
           },
-          "id": 24,
+          "id": 31,
           "options": {
             "showHeader": true,
-            "sortBy": []
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Time"
+              }
+            ]
           },
           "pluginVersion": "8.1.6",
           "targets": [
@@ -2490,13 +1596,58 @@
               },
               "functions": [],
               "group": {
-                "filter": "/url.*/"
+                "filter": "$gr"
+              },
+              "hide": false,
+              "host": {
+                "filter": "$host"
+              },
+              "item": {
+                "filter": "ipres2 yandex2"
+              },
+              "itemTag": {
+                "filter": ""
+              },
+              "options": {
+                "disableDataAlignment": false,
+                "showDisabledItems": false,
+                "skipEmptyValues": false,
+                "useZabbixValueMapping": false
+              },
+              "proxy": {
+                "filter": ""
+              },
+              "queryType": "2",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "table": {
+                "skipEmptyValues": false
+              },
+              "tags": {
+                "filter": ""
+              },
+              "trigger": {
+                "filter": ""
+              },
+              "triggers": {
+                "acknowledged": 2,
+                "count": true,
+                "minSeverity": 3
+              }
+            },
+            {
+              "application": {
+                "filter": ""
+              },
+              "functions": [],
+              "group": {
+                "filter": "$gr"
               },
               "host": {
                 "filter": "$host"
               },
               "item": {
-                "filter": "ipres3"
+                "filter": "ipres1 yandex2"
               },
               "itemTag": {
                 "filter": ""
@@ -2529,11 +1680,12 @@
               }
             }
           ],
-          "title": "YANDEX-2 DNS IP RESOLVED $host",
+          "title": "YANDEX-2 TABLE",
+          "transformations": [],
           "type": "table"
         }
       ],
-      "title": "IP TABLS RESOLVED",
+      "title": "IP TABLS RESOLVED $host",
       "type": "row"
     }
   ],
@@ -2546,11 +1698,73 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "admin-api-test.mixvel.com",
-          "value": "admin-api-test.mixvel.com"
+          "selected": true,
+          "text": "demo",
+          "value": "demo"
         },
-        "datasource": "Zabbix-PROD",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Stand",
+        "multi": false,
+        "name": "stand",
+        "options": [
+          {
+            "selected": true,
+            "text": "demo",
+            "value": "demo"
+          },
+          {
+            "selected": false,
+            "text": "prod",
+            "value": "prod"
+          }
+        ],
+        "query": "demo,prod",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "url_demo2",
+          "value": "url_demo2"
+        },
+        "datasource": "Zabbix",
+        "definition": "Zabbix - group",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Group",
+        "multi": false,
+        "name": "gr",
+        "options": [],
+        "query": {
+          "application": "",
+          "group": "/url_$stand/",
+          "host": "/.*/",
+          "item": "",
+          "itemTag": "",
+          "queryType": "group"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "admin-demo.mixvel.com",
+          "value": "admin-demo.mixvel.com"
+        },
+        "datasource": "Zabbix",
         "definition": "Zabbix - host",
         "description": null,
         "error": null,
@@ -2562,7 +1776,7 @@
         "options": [],
         "query": {
           "application": "",
-          "group": "/url.*/",
+          "group": "/url_$stand/",
           "host": "/.*/",
           "item": "",
           "itemTag": "",
@@ -2583,6 +1797,6 @@
   "timepicker": {},
   "timezone": "",
   "title": "DNS-CHECK",
-  "uid": "etPCs6y7k",
-  "version": 18
+  "uid": "sMavpCvVz",
+  "version": 17
 }
